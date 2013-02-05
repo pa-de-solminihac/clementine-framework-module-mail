@@ -15,7 +15,7 @@ class mailMailHelper extends mailMailHelper_Parent
         // check champs
         if (!empty($params['to'])) {
             // Securite antispam : les emails ne doivent contenir que des caracteres mail et il ne doit pas y avoir de retours a la ligne avant le titre
-            $params['to'] = preg_replace("/[^a-zA-Z0-9@\._\/='\"+-]/", "", $params['to']);
+            $params['to'] = preg_replace("/[^a-zA-Z0-9@\._+-]/", "", $params['to']);
         }
         if (empty($params['to'])) {
             // missing to
@@ -23,7 +23,7 @@ class mailMailHelper extends mailMailHelper_Parent
         }
         if (!empty($params['from'])) {
             // Securite antispam : les emails ne doivent contenir que des caracteres mail et il ne doit pas y avoir de retours a la ligne avant le titre
-            $params['from']  = preg_replace("/[^a-zA-Z0-9@\._\/='\"+-]/", "", $params['from']);
+            $params['from']  = preg_replace("/[^a-zA-Z0-9@\._+-]/", "", $params['from']);
         }
         if (empty($params['from'])) {
             // missing from
