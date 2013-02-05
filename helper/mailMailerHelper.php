@@ -48,14 +48,12 @@ class mailMailerHelper extends mailMailerHelper_Parent
         if ($conf['debug']) {
             $mail->SMTPDebug = 1; // 1 = errors and messages, 2 = messages only
         }
-        // par defaut, on prend la config du php.ini
-        $mail->Host = ini_get('SMTP');
-        $mail->Port = ini_get('smtp_port');
         if (!empty($conf['host'])) {
             $mail->Host = $conf['host'];
             if ($conf['secure']) {
                 $mail->SMTPSecure = $conf['secure'];
             }
+            $mail->Port = 25; // port par défaut
             if ($conf['port']) {
                 $mail->Port = $conf['port'];
             }
@@ -70,15 +68,15 @@ class mailMailerHelper extends mailMailerHelper_Parent
             $mail->AddReplyTo($params['from'], $params['fromname']);
         }
         // ask for confirmation
-        if (!empty($params['receipt'])) {
-            if (strpos($params['receipt'], '@')) {
-                $mail->ConfirmReadingTo = $params['receipt'];
-            } elseif (!empty($params['from'])) {
+        if ($params['receipt']) {
+            if ($params['receipt'] === true) {
                 $mail->ConfirmReadingTo = $params['from'];
+            } else {
+                $mail->ConfirmReadingTo = $params['receipt'];
             }
         }
         // message parts anonymization
-        if (!empty($params['anonymize'])) {
+        if ($params['anonymize']) {
             $regexp_anonymize = '/__CLEMENTINE_MAIL_ANONYMIZE_START__(.*\r*\n*)+__CLEMENTINE_MAIL_ANONYMIZE_STOP__/mU';
             $params['message_text'] = preg_replace($regexp_anonymize, '######', $params['message_text']);
             $params['message_html'] = preg_replace($regexp_anonymize, '######', $params['message_html']);
