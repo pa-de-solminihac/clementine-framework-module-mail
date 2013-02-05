@@ -48,14 +48,12 @@ class mailMailerHelper extends mailMailerHelper_Parent
         if ($conf['debug']) {
             $mail->SMTPDebug = 1; // 1 = errors and messages, 2 = messages only
         }
-        // par defaut, on prend la config du php.ini
-        $mail->Host = ini_get('SMTP');
-        $mail->Port = ini_get('smtp_port');
         if (!empty($conf['host'])) {
             $mail->Host = $conf['host'];
             if ($conf['secure']) {
                 $mail->SMTPSecure = $conf['secure'];
             }
+            $mail->Port = 25; // port par défaut
             if ($conf['port']) {
                 $mail->Port = $conf['port'];
             }
