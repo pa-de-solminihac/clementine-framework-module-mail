@@ -65,18 +65,11 @@ class mailMailHelper extends mailMailHelper_Parent
                                                                                str_replace('<br />', "\n", $params['message_html']))) . "\n";
         }
         // envoie le mail au mailer
-        if (empty($params['mailer'])) {
-            return $this->getHelper('mailer')->send($params);
-        } else {
-            // mailer par défaut
-            $mailer = $conf['default'];
-            if (!empty($params['type'])) {
-                if (!empty($conf[$params['type']])) {
-                    $mailer = $conf[$params['type']];
-                }
-            }
-            return $this->getHelper($mailer)->send($params);
+        $mailer = $conf['default'];
+        if (!empty($params['mailer'])) {
+            $mailer = $params['mailer'];
         }
+        return $this->getHelper($mailer)->send($params);
     }
 
     public function sendwrap($params)

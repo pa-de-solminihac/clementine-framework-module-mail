@@ -43,7 +43,11 @@ class mailMailerHelper extends mailMailerHelper_Parent
         // configuration
         $conf = Clementine::$config['module_mailer'];
         $mail = new PHPMailer();
-        $mail->IsSMTP();
+        if ($conf['host']) {
+            $mail->IsSMTP();
+        } else {
+            $mail->IsMail();
+        }
         $mail->CharSet = __PHP_ENCODING__;
         if ($conf['debug']) {
             $mail->SMTPDebug = 1; // 1 = errors and messages, 2 = messages only
