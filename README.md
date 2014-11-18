@@ -59,4 +59,7 @@ user=
 pass=
 ```
 
-Voilà, on peut maintenant dire par quel __mailer__ doivent passer les emails en utilisant la variable `$params['mailer']` lors de l'appel de la fonction `$this->getHelper('mail')->send($params)`
+Voilà, on peut maintenant dire par quel __mailer__ doivent passer les emails en utilisant la variable `$params['mailer']` lors de l'envoi d'un mail :
+```php
+$this->getHelper('mail')->send($params);
+```
