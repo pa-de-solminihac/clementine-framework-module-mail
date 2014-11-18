@@ -26,3 +26,23 @@ Pour définir de nouveaux mailers, il suffit d'utiliser la fonctionnalité d'ado
 mailchimp=mailer
 mailjet=mailer
 ```
+
+On configurera alors les modules mailer ainsi :
+```ini
+[module_mailjet]
+debug=1
+secure=
+port=587
+host=in.mailjet.com
+user=
+pass=
+
+[module_mailchimp]
+debug=1
+secure=
+port=587
+host=
+user=
+pass=
+
+```
