@@ -18,8 +18,6 @@ $mailer->send($params);
 
 ##Définir plusieurs mailers
 
-On peut spécifier le __mailer__ à utiliser pour un email donné par le biais de la variable `$params['mailer']`
-
 Pour définir de nouveaux mailers, il suffit d'utiliser la fonctionnalité d'adoption proposée par Clémentine :
 - déclarer l'adoption dans le fichier `config.ini` :
 ```ini
@@ -60,3 +58,5 @@ host=
 user=
 pass=
 ```
+
+Voilà, on peut maintenant dire par quel __mailer__ doivent passer les emails en utilisant la variable `$params['mailer']` lors de l'appel de la fonction `$this->getHelper('mail')->send($params)`
