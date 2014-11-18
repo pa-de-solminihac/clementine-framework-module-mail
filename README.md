@@ -40,7 +40,7 @@ class siteMailjetHelper extends siteMailjetHelper_Parent
 }
 ```
 
-On configurera alors les modules mailer ainsi :
+On configurera alors les modules mailer ainsi, dans le fichier `config.ini` :
 ```ini
 [module_mailjet]
 debug=1
