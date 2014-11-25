@@ -1,4 +1,4 @@
-#clementine-framework-module-mail
+#Clementine Framework : module Mail
 
 Le module __mail__ permet d'envoyer des emails en passant par un __mailer__.
 
