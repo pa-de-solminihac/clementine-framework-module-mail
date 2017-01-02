@@ -1,6 +1,6 @@
 <?php
 
-require_once(__FILES_ROOT_MAIL__ . '/lib/PHPMailer_5.2.21/class.phpmailer.php');
+require_once(__FILES_ROOT_MAIL__ . '/lib/PHPMailer_5.2.21/PHPMailerAutoload.php');
 
 class mailMailerHelper extends mailMailerHelper_Parent
 {
