@@ -49,6 +49,7 @@ port=587
 host=in.mailjet.com
 user=
 pass=
+fallback=mailchimp
 
 [module_mailchimp]
 debug=0
