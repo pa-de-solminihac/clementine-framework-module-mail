@@ -64,16 +64,54 @@ class mailMailHelper extends mailMailHelper_Parent
             $params['message_text'] = $this->getModel('fonctions')->strip_tags(str_replace('<hr />', '------------------------------',
                                                                                str_replace('<br />', "\n", $params['message_html']))) . "\n";
         }
-        // envoie le mail au mailer
+
+        // envoie le mail au(x) mailer(s)
         $mailer = $conf['default'];
         if (!empty($params['mailer'])) {
             $mailer = $params['mailer'];
         }
-        return $this->getHelper($mailer)->send($params);
+
+        return $this->sendWithFallback($mailer, $params);
     }
 
     public function sendwrap($params)
     {
+    }
+
+    protected function sendWithFallback($mailer, $params)
+    {
+        return $this->recursiveSend($mailer, $params)['result'];
+    }
+
+    /**
+     * Tente d'envoyer un mail en essayant tous les fallbacks définis
+     * @param   string  $mailer nom du helper mailer
+     * @param   mixed   $params
+     * @param   array   $ignoreFallbacks    liste de helpers à ignorer
+     * @return  array   resultat et helpers déjà utilisés (à ignorer pour éviter les boucles)
+     */
+    protected function recursiveSend($mailer, $params, $ignoreFallbacks = array())
+    {
+        array_push($ignoreFallbacks, $mailer);
+        $mailerHelper = $this->getHelper($mailer);
+        $mailerResult = $mailerHelper->send($params);
+
+        if (! $mailerResult) {
+            $fallbacks = $mailerHelper->getFallback();
+            foreach ($fallbacks as $fallbackMailer) {
+                if (! in_array($fallbackMailer, $ignoreFallbacks)) {
+                    $swfResult = $this->recursiveSend($fallbackMailer, $params, $ignoreFallbacks);
+                    $mailerResult = $swfResult['result'];
+                    $ignoreFallbacks = $swfResult['ignore'];
+                    if ($mailerResult) break;
+                }
+            }
+        }
+
+        return array(
+            'result' => $mailerResult,
+            'ignore' => $ignoreFallbacks,
+        );
     }
 
 }

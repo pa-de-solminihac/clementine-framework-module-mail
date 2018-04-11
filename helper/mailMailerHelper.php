@@ -100,5 +100,16 @@ class mailMailerHelper extends mailMailerHelper_Parent
         return $mail->Send();
     }
 
+    /**
+     * Renvoie la liste des mailers de secours.
+     * @return array
+     */
+    public function getFallback() {
+        $conf = Clementine::$config['module_' . $this->getCurrentModule()];
+        if (array_key_exists('fallback', $conf)) {
+            return explode(',', $conf['fallback']);
+        }
+        else return array();
+    }
 }
 ?>
